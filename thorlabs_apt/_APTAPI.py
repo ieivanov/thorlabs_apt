@@ -51,9 +51,29 @@ DC_PROFILEMODE_SCURVE = 2
 DC_JS_DIRSENSE_POS = 1
 DC_JS_DIRSENSE_NEG = 2
 
+# Trigger settings - used with MOT_Set(Get)Trigger
+TRIGIN_ENABLE = 1
+TRIGOUT_ENABLE = 2
+TRIGOUT_MODEFOLLOW = 4
+TRIGOUT_MODEMOVEEND = 8
+TRIG_RELMOVE = 10
+TRIG_ABSMOVE = 20
+TRIG_HOMEMOVE = 40
+TRIGOUT_NOTRIGIN = 80
+
+TRIGIN_HIGH = 1
+TRIGIN_RELMOVE = 2
+TRIGIN_ABSMOVE = 4
+TRIGIN_HOMEMOVE = 8
+TRIGOUT_HIGH = 10
+TRIGOUT_INMOTION = 20
+TRIGOUT_MOTIONCOMPLETE = 40
+TRIGOUT_MAXVELOCITY = 80
+
 def set_ctypes_argtypes(lib):
     c_long = ctypes.c_long
     c_long_p = ctypes.POINTER(ctypes.c_long)
+    c_char = ctypes.c_char
     c_char_p = ctypes.c_char_p
     c_bool = ctypes.c_bool
     c_float = ctypes.c_float
@@ -181,3 +201,9 @@ def set_ctypes_argtypes(lib):
     lib.MOT_GetDCSettledCurrentLoopParams.argtypes = [c_long, c_long_p, 
             c_long_p, c_long_p, c_long_p, c_long_p]
     lib.MOT_GetDCSettledCurrentLoopParams.restype = c_long
+
+    # K10CR1 triggering
+    lib.MOT_SetTrigger.argtypes = [c_char, c_char]
+    lib.MOT_SetTrigger.restype = c_long
+    lib.MOT_GetTrigger.argtypes = [c_char, c_char_p]
+    lib.MOT_GetTrigger.restype = c_long
